@@ -11,6 +11,9 @@
             @foreach ($posts as $post)
                 
             <div class="card">
+                <div class="card-header">
+                    {{$post->created_at->diffForHumans()}}
+                </div>
                 <div class="card-body">
                     <blockquote class="blockquote">
                         <p class="mb-0">{{$post->title}}</p>

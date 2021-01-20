@@ -16,6 +16,7 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('body');
+            $table->string('image');
             $table->unsignedInteger('category_id');
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories');

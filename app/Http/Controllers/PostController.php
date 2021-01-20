@@ -29,7 +29,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories= Category::orderBy('id','desc')->get();
+        $categories= Category::latest();
         return  view('post.index', compact('categories'));
     }
 
@@ -41,12 +41,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        Post::create([
-            'title'=>$request->title,
-            'body'=>$request->body,
-            'category_id'=>$request->category,
-        ]);
-        return redirect()->route('home');
+        $this->validate($request,[
+            'title' =>'required|max:10',
+            'body'=>'required'
+        ]); 
+        $file=$request->file('image');
+        echo $file->getClientOriginalName();  
+        // Post::create([
+        //     'title'=>$request->title,
+        //     'body'=>$request->body,
+        //     'category_id'=>$request->category,
+        //     'image'=>$request->image
+        // ]);
+        // return redirect()->route('home');
     }
 
     /**
@@ -69,7 +76,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $categories= Category::orderBy('id','desc')->get();
+        $categories= Category::latest();
         $post= Post::find($id);
         return view('post.edit', compact('post','categories'));
     }

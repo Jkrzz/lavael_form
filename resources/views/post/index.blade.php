@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('content')
-<form action="{{route('post.store')}}" method="POST">
+@foreach ($errors->all() as $error)
+    <div class="alert alert-danger">
+      {{$error}};
+    </div>
+@endforeach
+<form action="{{route('post.store')}}" method="POST" enctype="multipart/form-data">
   {{csrf_field()}}
     <div class="card">
         <div class="card-header">
@@ -14,6 +19,10 @@
                  <option value="{{$category->id}}">{{$category->name}}</option>
                  @endforeach
                 </select>
+              </div>
+              <div class="mb-3">
+                <label for="formFile"  class="form-label">Default file input example</label>
+                <input class="form-control" name="image" type="file" id="formFile">
               </div>
             <div class="form-group">
               <label for="title">Title</label>

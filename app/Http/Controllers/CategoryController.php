@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::orderBy('id','desc')->get();
+        $categories = Category::latest();
         return view('category.index', compact('categories'));
     }
 
@@ -49,7 +49,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {   
-        $categories=Category::orderBy('id','desc')->get();
+        $categories=Category::latest();
         $category = Category::find($id);
         $posts =$category->posts;
         return view('home',compact('categories','posts'));
